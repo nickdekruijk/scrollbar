@@ -23,10 +23,14 @@ Math.easeInOutQuad = function (t, b, c, d) {
 
 document.querySelectorAll('.scrollbar-x + .scroll-buttons > .scroll-button').forEach(function (el) {
     el.addEventListener('click', function (e) {
-        var direction = this.classList.contains('scroll-button-next') ? 3 : -3;
+        var direction = this.classList.contains('scroll-button-next') ? 1 : -1;
         var scroll = this.parentElement.previousElementSibling;
         var current = 1;
         var items = scroll.children[0].children;
+        var steps = Math.floor(scroll.clientWidth / items[0].clientWidth);
+        if (steps) {
+            direction = direction * steps;
+        }
         for (n in items) {
             if (items[n].offsetLeft <= scroll.scrollLeft) current = n;
         }
